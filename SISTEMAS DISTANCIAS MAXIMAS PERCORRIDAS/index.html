@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema IT 11 - Distâncias Máximas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Sistema IT 11 - Corpo de Bombeiros da Bahia</h1>
+            <h2>Anexo B - Tabela 2 - Distâncias máximas a serem percorridas</h2>
+        </header>
+
+        <div class="main-content">
+            <!-- Seção de entrada de dados -->
+            <div class="input-section">
+                <h3>Informações Gerais</h3>
+                
+                <div class="form-group">
+                    <label for="grupo">Grupo e divisão de ocupação:</label>
+                    <select id="grupo" name="grupo">
+                        <option value="">Selecione o grupo</option>
+                        <option value="A e B">A e B</option>
+                        <option value="C, D, E, F, G-3, G-4,G-5, H, L e M">C, D, E, F, G-3, G-4, G-5, H, L e M</option>
+                        <option value="I-1 e J-1">I-1 e J-1</option>
+                        <option value="G-1,G-2 eJ-2">G-1, G-2 e J-2</option>
+                        <option value="I-2, I-3, J-3 e J-4">I-2, I-3, J-3 e J-4</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <div class="radio-group">
+                        <input type="checkbox" id="mostrar-divisoes" name="mostrar-divisoes">
+                        <label for="mostrar-divisoes">Mostrar a divisão em destaque</label>
+                    </div>
+                </div>
+
+                <div class="form-group" id="divisoes-container" style="display: none;">
+                    <label for="divisao-especifica">Divisão específica:</label>
+                    <select id="divisao-especifica" name="divisao-especifica">
+                        <option value="">Selecione a divisão</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="andar">Andar:</label>
+                    <select id="andar" name="andar">
+                        <option value="">Selecione o andar</option>
+                        <option value="De saída da edificação (piso de descarga)">De saída da edificação (piso de descarga)</option>
+                        <option value="Demais andares">Demais andares</option>
+                        <option value="Ambas informações">Ambas informações</option>
+                    </select>
+                </div>
+
+                <!-- Guias -->
+                <div class="tabs">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="distancias">Distâncias Máximas</button>
+                        <button class="tab-button" data-tab="outras" disabled>Outras Tabelas</button>
+                    </div>
+
+                    <div class="tab-content">
+                        <div id="distancias" class="tab-panel active">
+                            <h4>Configurações para Distâncias Máximas</h4>
+                            
+                            <div class="form-group">
+                                <label>Possui chuveiro automático:</label>
+                                <div class="radio-group">
+                                    <input type="radio" id="chuveiro-sim" name="chuveiro" value="sim">
+                                    <label for="chuveiro-sim">Sim</label>
+                                    <input type="radio" id="chuveiro-nao" name="chuveiro" value="nao">
+                                    <label for="chuveiro-nao">Não</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Possui detecção e alarme:</label>
+                                <div class="radio-group">
+                                    <input type="radio" id="deteccao-sim" name="deteccao" value="sim">
+                                    <label for="deteccao-sim">Sim</label>
+                                    <input type="radio" id="deteccao-nao" name="deteccao" value="nao">
+                                    <label for="deteccao-nao">Não</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Quantidade de saídas:</label>
+                                <div class="radio-group">
+                                    <input type="radio" id="saida-unica" name="saidas" value="unica">
+                                    <label for="saida-unica">Uma saída</label>
+                                    <input type="radio" id="saida-multipla" name="saidas" value="multipla">
+                                    <label for="saida-multipla">Mais de uma saída</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="outras" class="tab-panel">
+                            <p>Outras tabelas serão implementadas em versões futuras.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de resultados -->
+            <div class="results-section">
+                <div class="results-header">
+                    <h3>Resultado</h3>
+                    <div class="action-buttons">
+                        <button id="btn-limpar" class="btn btn-secondary">Limpar</button>
+                        <button id="btn-salvar-imagem" class="btn btn-primary">Salvar como Imagem</button>
+                        <button id="btn-gerar-excel" class="btn btn-success">Gerar Planilha Excel</button>
+                    </div>
+                </div>
+
+                <div id="resultado-tabela" class="table-container">
+                    <table id="tabela-resultado">
+                        <thead>
+                            <tr>
+                                <th rowspan="3">Grupo e divisão de ocupação</th>
+                                <th rowspan="3">Andar</th>
+                                <th colspan="4">Sem chuveiros automáticos</th>
+                                <th colspan="4">Com chuveiros automáticos</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Saída única</th>
+                                <th colspan="2">Mais de uma saída</th>
+                                <th colspan="2">Saída única</th>
+                                <th colspan="2">Mais de uma saída</th>
+                            </tr>
+                            <tr>
+                                <th>Sem detecção automática de fumaça (referência)</th>
+                                <th>Com detecção automática de fumaça (referência)</th>
+                                <th>Sem detecção automática de fumaça (referência)</th>
+                                <th>Com detecção automática de fumaça (referência)</th>
+                                <th>Sem detecção automática de fumaça (referência)</th>
+                                <th>Com detecção automática de fumaça (referência)</th>
+                                <th>Sem detecção automática de fumaça (referência)</th>
+                                <th>Com detecção automática de fumaça (referência)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-corpo">
+                            <tr>
+                                <td colspan="10" class="no-data">Selecione as opções acima para ver os resultados</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="notas">
+                    <h4>Notas:</h4>
+                    <p><strong>a.</strong> esta tabela se aplica a todas as edificações, exceto para as locais destinados à divisão F-3 e F-7, com população total superior a 100 pessoas, que deve consultar a tabela 3 deste anexo;</p>
+                    <p><strong>b.</strong> para edificações com mais de um pavimento, a distância máxima a ser percorrida no térreo até a saída da edificação deve ser reduzida em 50%;</p>
+                    <p><strong>c.</strong> para a classificação das ocupações (grupos e divisões), consultar a tabela 1 do Decreto Estadual 16.302/2015;</p>
+                    <p><strong>d.</strong> Para obtenção dos valores da coluna "referência", consultar a tabela 1 do Decreto Estadual 16.302/2015.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
